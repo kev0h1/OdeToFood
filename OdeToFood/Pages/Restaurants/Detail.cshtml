@@ -1,4 +1,6 @@
-﻿@page "{restaurantId:int}"
+﻿@*adding a question mark makes the parameter optional*@
+
+@page "{restaurantId:int}"
 
 @model OdeToFood.Pages.Restaurants.DetailModel
 @{
@@ -6,6 +8,11 @@
 }
 
 <h2>@Model.Restaurant.Name</h2>
+
+@if (Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
 
 <div>
     Id: @Model.Restaurant.ID
@@ -18,6 +25,7 @@
 <div>
     Cuisine: @Model.Restaurant.Cuisine
 </div>
+
 
 @*anchor tag a points back to the list page*@
 <a asp-page="./List" class="btn btn-default">All Restaurants</a>

@@ -22,20 +22,41 @@ namespace OdeToFood.Pages.Restaurants
         {
             _restaurantData = restaurantData;
             _htmlHelper = htmlHelper;
-            Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
+
         }
-        public IActionResult OnGet(int restaurantId)
+        public IActionResult OnGet(int? restaurantId)
         {
-            Restaurant = _restaurantData.GetById(restaurantId);
+            Cuisines = _htmlHelper.GetEnumSelectList<CuisineType>();
+            if (restaurantId.HasValue)
+                Restaurant = _restaurantData.GetById(restaurantId.Value);
+            else
+            {
+                Restaurant = new Restaurant();
+            }
             if (Restaurant == null) return RedirectToPage("./NotFound");
             return Page();
         }
 
         public IActionResult OnPost()
         {
-            Restaurant=_restaurantData.Update(Restaurant);
+            if (!ModelState.IsValid)
+            {
+                Cuisines = _htmlHelper.GetEnumSelectList<CuisineType>();
+                return Page();
+               
+            }
+            if (Restaurant.ID > 0)
+            {
+                _restaurantData.Update(Restaurant);
+            }
+            else
+            {
+                _restaurantData.Add(Restaurant);
+            }
             _restaurantData.Commit();
-            return Page();
+            TempData["Message"] = "Restaurant saved!";
+            return RedirectToPage("./Detail", new { restaurantId = Restaurant.ID });
+
         }
     }
 }
