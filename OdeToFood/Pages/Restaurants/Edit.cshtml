@@ -7,10 +7,10 @@
 <h2>Editing @Model.Restaurant.Name</h2>
 
 <form method="post">
-    <input type="hidden" asp-for="Restaurant.ID"/>
+    <input type="hidden" asp-for="Restaurant.ID" />
     <div class="form-group">
         <label asp-for="Restaurant.Name"></label>
-        <input asp-for="Restaurant.Name" class="form-control"/>
+        <input asp-for="Restaurant.Name" class="form-control" />
         <span class="text-danger" asp-validation-for="Restaurant.Name"></span>
     </div>
     <div class="form-group">
@@ -27,4 +27,9 @@
         <span class="text-danger" asp-validation-for="Restaurant.Cuisine"></span>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
-</form>
+</form>S
+
+@*provides client side validation within the script (i.e live validation)*@
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

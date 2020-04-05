@@ -48,8 +48,14 @@
         @RenderBody()
         <hr />
         <footer>
+            @* when looking for the view component replace the capital letter with a -*small letter
+                dont need it for the first letter
+                to pass variables in the method, pass  by name
+                *@
+            <vc:restaurant-count></vc:restaurant-count>
             @RenderSection("footer", required: false)
             <p>&copy; 2020 - OdeToFood</p>
+            <img src="~/kevin.png"/>
         </footer>
     </div>
 
